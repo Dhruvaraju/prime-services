@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const loUser = require("../models/user");
 const bcrypt = require("bcrypt");
-const { post } = require("../routes/registerRoutes");
-const user = require("../models/user");
 
 const addUser = async (req, res) => {
   try {

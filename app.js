@@ -10,13 +10,16 @@ app.use(express.json());
 const registerRoutes = require("./routes/registerRoutes");
 app.use("/user", registerRoutes);
 
+const ipoRoutes = require("./routes/ipoRoutes");
+app.use("/ipo", ipoRoutes);
+
 mongoose.connect(
   process.env.MONGO_CONNECTION_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
-    console.log("connected to db");
+    console.log("app resources instantiated");
   }
-);
+); 
 
 app.listen(PORT, () => {
   console.log(`app running on ${PORT}`);
