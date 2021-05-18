@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   description: >-
-    Api definition for prime services, which will support soperations of prime an investments app.
+    Api definition for prime services, which will support operations of prime an investments app.
   version: 1.0.0
   title: Prime-Services
   termsOfService: 'https://github.com/Dhruvaraju/prime-services/blob/main/LICENSE'
@@ -483,7 +483,7 @@ definitions:
         type: string
         enum:
           - Monthly
-          - Quaterly
+          - Quarterly
           - Annual
       productId:
         type: string
