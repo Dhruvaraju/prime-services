@@ -157,7 +157,7 @@ paths:
           description: Initial registration for user for an ipo, ipo quote information will not be provided while making this call
           required: true
           schema:
-            $ref: '#/definitions/transactionRequest'
+            $ref: '#/definitions/fpShopRequest'
       responses:
         '200':
           description: Product added to your portfolio
@@ -432,3 +432,29 @@ definitions:
           - 304
       description:
         type: string
+  fpShopRequest:
+    type: object
+    required:
+      - userName
+      - type
+      - quantity
+    properties:
+      userName:
+        type: string
+        example: norad01
+      type:
+        type: string
+        enum:
+          - Buy
+          - Sell
+      paymentType:
+        type: string
+        enum:
+          - Monthly
+          - Quaterly
+          - Annual
+      productCode:
+        type: string
+      marketPrice:
+        type: number
+        format: double
