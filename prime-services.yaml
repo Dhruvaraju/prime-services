@@ -58,12 +58,12 @@ paths:
           description: The user name for login
           required: true
           schema:
-            $ref: '#/definitions/user-creds'
+            $ref: '#/definitions/User-cred'
       responses:
         '200':
           description: successful operation
           schema:
-             $ref: '#/definitions/login-response'
+             $ref: '#/definitions/Login-response'
           headers:
             X-Rate-Limit:
               type: integer
@@ -79,7 +79,7 @@ paths:
     post:
       tags:
         - ipo
-      summary: To reister user for an ipo
+      summary: To register user for an ipo
       description: 'Register user for an ipo'
       operationId: registerIPO
       produces:
@@ -90,10 +90,10 @@ paths:
           description: Initial registration for user for an ipo, ipo quote information will not be provided while making this call
           required: true
           schema:
-            $ref: '#/definitions/ipo-details'
+            $ref: '#/definitions/Ipo-details'
       responses:
         '200':
-          description: Register for Ipo sucessfully
+          description: Register for Ipo successfully
           headers:
             X-Rate-Limit:
               type: integer
@@ -112,8 +112,8 @@ paths:
     put:
       tags:
         - ipo
-      summary: Upadating IPO quote details
-      description: 'Upadating IPO quote details'
+      summary: Updating IPO quote details
+      description: 'Updating IPO quote details'
       operationId: ipoQuote
       produces:
         - application/json
@@ -123,7 +123,7 @@ paths:
           description: The register object will be updated with a quote details
           required: true
           schema:
-            $ref: '#/definitions/ipo-details'
+            $ref: '#/definitions/Ipo-details'
       responses:
         '200':
           description: Updated quote details
@@ -148,7 +148,7 @@ paths:
         - financial-product-shop
       summary: To buy a financial product
       description: 'buy a financial product'
-      operationId: fpbuy
+      operationId: fp-buy
       produces:
         - application/json
       parameters:
@@ -157,7 +157,7 @@ paths:
           description: Initial registration for user for an ipo, ipo quote information will not be provided while making this call
           required: true
           schema:
-            $ref: '#/definitions/transactionRequest'
+            $ref: '#/definitions/TransactionRequest'
       responses:
         '200':
           description: Product added to your portfolio
@@ -171,11 +171,41 @@ paths:
               format: date-time
               description: date in UTC when token expires
         '400':
-          description: System unavilable try later.
+          description: System unavailable try later.
         '403':
-          description: System unavilable try later.
+          description: System unavailable try later.
         '500':
-          description: System unavilable try later.
+          description: System unavailable try later.
+  /fpshop/catalog:
+    get:
+      tags:
+        - financial-product-shop
+      summary: To get list of all financial products
+      description: 'List of financial products'
+      operationId: fp-buy
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of all financial products
+          schema:
+            type: "array"
+            $ref: '#/definitions/Financial-product'
+          headers:
+            X-Rate-Limit:
+              type: integer
+              format: int32
+              description: calls per hour allowed by the user
+            X-Expires-After:
+              type: string
+              format: date-time
+              description: date in UTC when token expires
+        '400':
+          description: System unavailable try later.
+        '403':
+          description: System unavailable try later.
+        '500':
+          description: System unavailable try later.
   /bns/buy:
     post:
       tags:
@@ -191,7 +221,7 @@ paths:
           description: buying a stock
           required: true
           schema:
-            $ref: '#/definitions/transactionRequest'
+            $ref: '#/definitions/TransactionRequest'
       responses:
         '200':
           description: Product added to your portfolio
@@ -205,11 +235,11 @@ paths:
               format: date-time
               description: date in UTC when token expires
         '400':
-          description: System unavilable try later.
+          description: System unavailable try later.
         '403':
-          description: System unavilable try later.
+          description: System unavailable try later.
         '500':
-          description: System unavilable try later.
+          description: System unavailable try later.
   /bns/sell:
     post:
       tags:
@@ -225,10 +255,10 @@ paths:
           description: buying a stock
           required: true
           schema:
-            $ref: '#/definitions/transactionRequest'
+            $ref: '#/definitions/TransactionRequest'
       responses:
         '200':
-          description: Product sale initiated sucessfully
+          description: Product sale initiated successfully
           headers:
             X-Rate-Limit:
               type: integer
@@ -239,13 +269,13 @@ paths:
               format: date-time
               description: date in UTC when token expires
         '400':
-          description: System unavilable try later.
+          description: System unavailable try later.
         '403':
-          description: System unavilable try later.
+          description: System unavailable try later.
         '500':
-          description: System unavilable try later.
+          description: System unavailable try later.
 definitions:
-  financial-product:
+  Financial-product:
     type: object
     properties:
       id:
@@ -265,7 +295,7 @@ definitions:
         type: string
         enum:
           - Monthly
-          - Quaterly
+          - Quarterly
           - Yearly
       minimumPaymentAmount:
         type: number
@@ -273,7 +303,7 @@ definitions:
         default: 10000
     xml:
       name: Order
-  ipo-details:
+  Ipo-details:
     type: object
     properties:
       id:
@@ -295,8 +325,8 @@ definitions:
         example: 25
         description: maximum of 49%
       ipoQuote:
-        $ref: '#/definitions/ipoQuoteDetails'
-  ipoQuoteDetails:
+        $ref: '#/definitions/IpoQuoteDetails'
+  IpoQuoteDetails:
     type: object
     properties:
       description:
@@ -340,7 +370,9 @@ definitions:
       organization-name:
         type: string
         example: DC comics
-        description: Mandatory when usertype is organization
+        description: Mandatory when user-type is organization
+      panNumber:
+        type: string
       password:
         type: string
       addressLine-01:
@@ -352,7 +384,7 @@ definitions:
         type: string
       country:
         type: string
-      pincode:
+      pinCode:
         type: integer
         format: int64
       userType:
@@ -360,7 +392,7 @@ definitions:
         enum:
         - INDIVIDUAL
         - ORGANIZATION
-  user-creds:
+  User-cred:
     type: object
     required:
       - userName
@@ -371,8 +403,8 @@ definitions:
         example: norad01
       password:
         type: string
-        example: secureops
-  login-response:
+        example: secure-ops
+  Login-response:
     type: object
     required:
     - message
@@ -380,7 +412,7 @@ definitions:
       message:
         type: boolean
         example: true / false
-  transactionRequest:
+  TransactionRequest:
     type: object
     required:
       - userName
@@ -410,7 +442,7 @@ definitions:
       marketPrice:
         type: number
         format: double
-  error:
+  Error:
     type: object
     required:
       - message

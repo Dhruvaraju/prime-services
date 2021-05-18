@@ -30,9 +30,9 @@ const findUser = async (req, res) => {
       "email password"
     );
     if (await bcrypt.compare(req.body.password, foundUser.password)) {
-      res.send({ message: "Authentication Successful" });
+      res.send({ message: true });
     } else {
-      res.status(403).send({ message: "Authentication Failed" });
+      res.status(403).send({ message: false });
     }
   } catch (err) {
     res.send(err);
