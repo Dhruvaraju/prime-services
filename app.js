@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 dotenv.config();
 const PORT = process.env.port;
+app.set('port', (process.env.PORT || 5000));
 
 app.use(express.json());
 const registerRoutes = require("./routes/registerRoutes");
@@ -21,6 +22,6 @@ mongoose.connect(
   }
 ); 
 
-app.listen(PORT, () => {
+app.listen(app.get('port'), () => {
   console.log(`app running on ${PORT}`);
 });
