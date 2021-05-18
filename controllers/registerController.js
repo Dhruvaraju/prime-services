@@ -8,6 +8,7 @@ const addUser = async (req, res) => {
     const newUser = new loUser({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      userName: req.body.userType,
       organizationName: req.body.organizationName,
       email: req.body.email,
       registeredDate: Date.now(),
