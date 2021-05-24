@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
+  userName: {
+    type: String,
+    required: true,
+    createIndexes: true,
+  },
   firstName: {
     type: String,
     required: true,
@@ -9,17 +14,13 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  userName: {
-    type: String,
-    required: true,
-  },
-  organizationName: {
-    type: String,
-  },
   email: {
     type: String,
     required: true,
-    unicreateIndexes: true,
+    createIndexes: true,
+  },
+  organizationName: {
+    type: String,
   },
   registeredDate: {
     type: Date,
@@ -29,11 +30,30 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  userType: {
+  password: {
     type: String,
     required: true,
   },
-  password: {
+  addressLine01: {
+    type: String,
+    required: true,
+  },
+  addressLine02: {
+    type: String,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  pincode: {
+    type: Number,
+    required: true,
+  },
+  userType: {
     type: String,
     required: true,
   },
