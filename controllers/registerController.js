@@ -8,12 +8,9 @@ const addUser = async (req, res) => {
       { userName: req.body.userName },
       "username"
     );
-    const emailFound = await loUser.findOne(
-      { email: req.body.email },
-      "email"
-    );
+    const emailFound = await loUser.findOne({ email: req.body.email }, "email");
     if (foundUser != null || emailFound != null) {
-      res.send("User already exists");
+      res.send({ message: "User already exists", status: 300 });
     } else {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const newUser = new loUser({
@@ -34,7 +31,10 @@ const addUser = async (req, res) => {
       });
 
       const update = await newUser.save();
-      res.send(update);
+      res.send({
+        message: `${update.firstName} Created Successfully`,
+        status: 204,
+      });
     }
   } catch (error) {
     res.send(error);
@@ -45,10 +45,14 @@ const findUser = async (req, res) => {
   try {
     const foundUser = await loUser.findOne(
       { userName: req.body.userName },
-      "email password"
+      "email password userType userName"
     );
     if (await bcrypt.compare(req.body.password, foundUser.password)) {
-      res.send({ message: true });
+      res.send({
+        userName: req.body.userName,
+        userType: foundUser.userType,
+        message: true,
+      });
     } else {
       res.status(403).send({ message: false });
     }
