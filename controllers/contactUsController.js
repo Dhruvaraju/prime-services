@@ -10,7 +10,10 @@ const addMessage = async (req, res) => {
         messageText: req.body.message
     });
     const update = await contactMsg.save();
-    res.send("Added successfully");
+    res.send({
+      message: `${update} Created Successfully`,
+      status: 204,
+    });
   } catch (err) {
     res.send("Error Occurred, Error message: " + err);
   }
