@@ -16,6 +16,9 @@ app.use("/user", registerRoutes);
 const ipoRoutes = require("./routes/ipoRoutes");
 app.use("/ipo", ipoRoutes);
 
+const contactRoutes = require("./routes/contactUsRoutes");
+app.use("/contact", contactRoutes);
+
 mongoose.connect(
   process.env.MONGO_CONNECTION_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true },
